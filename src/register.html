@@ -60,72 +60,51 @@
 </head>
 
 <body>
-    <form>
-        <div class="container">
-            <h1>hey register</h1>
-            <p>please</p>
-            <hr>
-            <label for="email"><b>Email</b></label>
-            <br>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-            <br>
-            <br>
-            <label><b>Password</b></label>
-            <br>
-            <input type="password" placeholder="Password" name="password" id="password" required>
-            <br>
-            <br>
-            <button type="button" id="submitData" name="submitData" class="registerbtn">Register</button>
-
+    <div id="register">
+        <div id="logo">
+            Register
         </div>
-    </form>
+        <hr>
+        <br>
+        <p1 id="title" style="float: left;">Welcome, please register as Student/Demonstrator.</p1>
+        <br>
+        <br>
+        <label for="forname"><b>Forename</b></label>
+        <br>
+        <input type="text" placeholder="Enter Forename" name="forename" id="forename" required>
+        <br>
+        <br>
+        <label for="surname"><b>Surname</b></label>
+        <br>
+        <input type="text" placeholder="Enter Surname" name="surname" id="surname" required>
+        <br>
+        <br>
+        <label for="email"><b>Email</b></label>
+        <br>
+        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+        <br>
+        <br>
+        <label><b>Password</b></label>
+        <br>
+        <input type="password" placeholder="Password" name="password" id="password" required>
+        <br>
+        <br>
+        <p1><b>I am a:</b></p1>
+        <br>
+        <form>
+            <input type="checkbox" id="student" name="student" value="Student">
+            <label for="student">Student</label>
+            <input type="checkbox" id="teacher" name="teacher" value="Teacher">
+            <label for="teacher">Teacher</label>
+        </form>
+        <br>
+        <br>
+        <br>
+        <button type="button" id="registerBtn" name="registerBtn" style="float: left;"
+            class="operation">Register</button>
+        <button id="back" style="float: left;" class="operation" onclick="location.href='index.html';">Back</button>
+        </form>
 </body>
-
-<!-- <div id="register">
-            <div id="logo">
-                Register
-            </div>
-            <hr>
-            <br>
-            <p1 id="title" style="float: left;">Welcome, please register as Student/Demonstrator.</p1>
-            <br>
-            <br>
-            <label for="forname"><b>Forename</b></label>
-            <br>
-            <input type="text" placeholder="Enter Forename" name="forename" id="forename" required>
-            <br>
-            <br>
-            <label for="surname"><b>Surname</b></label>
-            <br>
-            <input type="text" placeholder="Enter Surname" name="surname" id="surname" required>
-            <br>
-            <br>
-            <label for="email"><b>Email</b></label>
-            <br>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-            <br>
-            <br>
-            <label><b>Password</b></label>
-            <br>
-            <input type="password" placeholder="Password" name="password" id="password" required>
-            <br>
-            <br>
-            <p1><b>I am a:</b></p1>
-            <br>
-            <form>
-                <input type="checkbox" id="student" name="student" value="Student">
-                <label for="student">Student</label>
-                <input type="checkbox" id="teacher" name="teacher" value="Teacher">
-                <label for="teacher">Teacher</label>
-            </form>
-            <br>
-            <br>
-            <br>
-            <button type="button" id="registerBtn" name="registerBtn" style="float: left;"
-                class="operation">Register</button>
-            <button id="back" style="float: left;" class="operation" onclick="location.href='index.html';">Back</button>
-    </form>
-</body> -->
 
 
 <script type="module">
@@ -192,7 +171,7 @@
     //     registerUser();
     // })
 
-    submitData.addEventListener('click', (e) => {
+    registerBtn.addEventListener('click', (e) => {
 
         e.preventDefault();
         var email = document.getElementById("email").value;
