@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>QUBeditotron3000</title>
+
+    <script type="text/javascript">
+
+    </script>
+
+    <style type="text/css">
+        body {
+            font-size: 150%;
+            font-family: monospace;
+        }
+
+        #logo {
+            font-family: Calibri, sans-serif;
+            font-weight: bold;
+            color: #505050;
+            margin: 0.5em;
+        }
+
+        #editor {
+            text-align: center;
+            margin-top: 1em;
+        }
+
+        #output {
+            font-size: 100%;
+            padding: 0.2em;
+            margin: 0.2em;
+            font-family: monospace;
+            letter-spacing: 0.1em;
+        }
+
+        #content {
+            font-size: 100%;
+            padding: 0.2em;
+            margin: 0.2em;
+            font-family: monospace;
+            letter-spacing: 0.1em;
+        }
+
+        .operation {
+            border: solid #d0d0d0 1px;
+            background-color: #f0f0f0;
+            padding: 1.5em;
+            margin: 1em;
+            width: 14em;
+        }
+
+        #title {
+            text-align: left;
+            font-size: 100%;
+            float: left;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form>
+        <div class="container">
+            <h1>hey register</h1>
+            <p>please</p>
+            <hr>
+            <label for="email"><b>Email</b></label>
+            <br>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>
+            <br>
+            <br>
+            <label><b>Password</b></label>
+            <br>
+            <input type="password" placeholder="Password" name="password" id="password" required>
+            <br>
+            <br>
+            <button type="button" id="submitData" name="submitData" class="registerbtn">Register</button>
+
+        </div>
+    </form>
+</body>
+
+<!-- <div id="register">
+            <div id="logo">
+                Register
+            </div>
+            <hr>
+            <br>
+            <p1 id="title" style="float: left;">Welcome, please register as Student/Demonstrator.</p1>
+            <br>
+            <br>
+            <label for="forname"><b>Forename</b></label>
+            <br>
+            <input type="text" placeholder="Enter Forename" name="forename" id="forename" required>
+            <br>
+            <br>
+            <label for="surname"><b>Surname</b></label>
+            <br>
+            <input type="text" placeholder="Enter Surname" name="surname" id="surname" required>
+            <br>
+            <br>
+            <label for="email"><b>Email</b></label>
+            <br>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>
+            <br>
+            <br>
+            <label><b>Password</b></label>
+            <br>
+            <input type="password" placeholder="Password" name="password" id="password" required>
+            <br>
+            <br>
+            <p1><b>I am a:</b></p1>
+            <br>
+            <form>
+                <input type="checkbox" id="student" name="student" value="Student">
+                <label for="student">Student</label>
+                <input type="checkbox" id="teacher" name="teacher" value="Teacher">
+                <label for="teacher">Teacher</label>
+            </form>
+            <br>
+            <br>
+            <br>
+            <button type="button" id="registerBtn" name="registerBtn" style="float: left;"
+                class="operation">Register</button>
+            <button id="back" style="float: left;" class="operation" onclick="location.href='index.html';">Back</button>
+    </form>
+</body> -->
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-auth.js";
+    import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-database.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyA0ENM020LPk98LkjhN9ViZjyg42PblhsY",
+        authDomain: "labhelper-a5690.firebaseapp.com",
+        databaseURL: "https://labhelper-a5690-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "labhelper-a5690",
+        storageBucket: "labhelper-a5690.appspot.com",
+        messagingSenderId: "444496150507",
+        appId: "1:444496150507:web:2da752bd23250f39fca3ae",
+        measurementId: "G-WBVDGV3753"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+    const analytics = getAnalytics(app);
+
+    // function registerUser() {
+    //     console.log("register button(in body)");
+    //     first_name = document.getElementById('first_name').value;
+    //     console.log("value: " + first_name);
+
+    //     createUserWithEmailAndPassword(auth, first_name, first_name).then(function () {
+    //         console.log("1");
+    //         var user = auth.currentUser
+
+    //         var database_ref = database.ref()
+
+    //         var user_data = {
+    //             first_name: first_name,
+    //             last_login: Date.now()
+    //         }
+
+    //         database_ref.child('users/' + user.uid).set(user_data)
+
+    //         alert('User created!');
+    //     })
+    //         .catch(function (error) {
+    //             var error_code = error.code
+    //             var error_message = error.message
+
+    //             alert(error_message)
+    //         })
+    // }
+
+    // const registerBtn = document.getElementById("registerbtn");
+    // registerBtn.addEventListener("click", registerUser);
+
+    // document.getElementById("registerbtn").addEventListener("click", e => {
+    //     e.preventDefault();
+    //     registerUser();
+    // })
+
+    submitData.addEventListener('click', (e) => {
+
+        e.preventDefault();
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        console.log("registering email: " + email + " " + password);
+
+        // const db = getDatabase();
+        //     set(ref(db, 'users/'), {
+        //         email: email,
+        //         name: "alvis"
+        //     });
+
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                // ...
+                console.log("123");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+    })
+
+</script>
