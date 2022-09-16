@@ -173,29 +173,45 @@
 
     registerBtn.addEventListener('click', (e) => {
 
+        //this is maybe not needed, works on mac+inbuilt browser registering account, but not on firefox on pc
         e.preventDefault();
+
+        //getting all from input fields
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
-        console.log("registering email: " + email + " " + password);
-
-        // const db = getDatabase();
-        //     set(ref(db, 'users/'), {
-        //         email: email,
-        //         name: "alvis"
-        //     });
+        var forename = document.getElementById("forename").value;
+        var surname = document.getElementById("surname").value;
+        var personRole = document.getElementById("")
 
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                // ...
-                console.log("123");
+
+                console.log("new account created");
+
+                //writing to realtime database user info
+                const db = getDatabase();
+                set(ref(db, 'users/' + user.uid), {
+                    email: email,
+                    name: "alvis"
+                })
+                    .then(() => {
+                        console.log("user info saved to database");
+                        //data saved to database
+                    })
+                    .catch((error) => {
+                        console.log("error! user info failed to save to database");
+                        //writing to databse failed
+                    });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 // ..
+                console.log("failed to create new account");
+                alert(errorMessage);
             });
     })
 
