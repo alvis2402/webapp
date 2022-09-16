@@ -92,7 +92,7 @@
         <p1><b>I am a:</b></p1>
         <br>
         <form>
-            <input type="checkbox" id="student" name="student" value="Student">
+            <input type="checkbox" id="student" name="student" value="Student" checked>
             <label for="student">Student</label>
             <input type="checkbox" id="teacher" name="teacher" value="Teacher">
             <label for="teacher">Teacher</label>
@@ -135,41 +135,31 @@
     const database = getDatabase(app);
     const analytics = getAnalytics(app);
 
-    // function registerUser() {
-    //     console.log("register button(in body)");
-    //     first_name = document.getElementById('first_name').value;
-    //     console.log("value: " + first_name);
 
-    //     createUserWithEmailAndPassword(auth, first_name, first_name).then(function () {
-    //         console.log("1");
-    //         var user = auth.currentUser
+    //student+teacher checkbox listeners to disable the other one when one is selected
+    student.addEventListener('click', (e) => {
+        console.log("student checkbox");
+        var studentVal = document.getElementById("student");
+        if (studentVal.checked) {
+            teacher.checked = false;
+        }
+        else {
+            student.checked = true;
+        }
+    })
 
-    //         var database_ref = database.ref()
+    teacher.addEventListener('click', (e) => {
+        console.log("teacher checkbox");
+        var teacherVal = document.getElementById("teacher");
+        if (teacherVal.checked) {
+            student.checked = false;
+        }
+        else {
+            teacher.checked = true;
+        }
+    })
 
-    //         var user_data = {
-    //             first_name: first_name,
-    //             last_login: Date.now()
-    //         }
 
-    //         database_ref.child('users/' + user.uid).set(user_data)
-
-    //         alert('User created!');
-    //     })
-    //         .catch(function (error) {
-    //             var error_code = error.code
-    //             var error_message = error.message
-
-    //             alert(error_message)
-    //         })
-    // }
-
-    // const registerBtn = document.getElementById("registerbtn");
-    // registerBtn.addEventListener("click", registerUser);
-
-    // document.getElementById("registerbtn").addEventListener("click", e => {
-    //     e.preventDefault();
-    //     registerUser();
-    // })
 
     registerBtn.addEventListener('click', (e) => {
 
@@ -181,38 +171,56 @@
         var password = document.getElementById("password").value;
         var forename = document.getElementById("forename").value;
         var surname = document.getElementById("surname").value;
-        var personRole = document.getElementById("")
 
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
+        //checking to see which role is checkboxed
+        var roleSelected = null;
+        if (teacher.checked) {
+            roleSelected = "teacher";
+        }
+        else {
+            roleSelected = "student";
+        }
 
-                console.log("new account created");
+        console.log("gathered user information:");
 
-                //writing to realtime database user info
-                const db = getDatabase();
-                set(ref(db, 'users/' + user.uid), {
-                    email: email,
-                    name: "alvis"
-                })
-                    .then(() => {
-                        console.log("user info saved to database");
-                        //data saved to database
+
+        //user input field verification (not empty) before registering to firebase
+        if (email && password && forename && surname && roleSelected) {
+            console.log("hey this");
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+
+                    console.log("new account created");
+
+                    //writing to realtime database user info
+                    const db = getDatabase();
+                    set(ref(db, 'users/' + user.uid), {
+                        email: email,
+                        name: "alvis"
                     })
-                    .catch((error) => {
-                        console.log("error! user info failed to save to database");
-                        //writing to databse failed
-                    });
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-                console.log("failed to create new account");
-                alert(errorMessage);
-            });
+                        .then(() => {
+                            console.log("user info saved to database");
+                            //data saved to database
+                        })
+                        .catch((error) => {
+                            console.log("error! user info failed to save to database");
+                            //writing to databse failed
+                        });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // ..
+                    console.log("failed to create new account");
+                    alert(errorMessage);
+                });
+        }
+        else {
+            alert("Please fill in all required fields");
+        }
     })
 
 </script>
